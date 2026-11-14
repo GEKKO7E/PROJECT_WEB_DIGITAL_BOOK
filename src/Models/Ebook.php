@@ -3,85 +3,73 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-class Ebook extends Media
+use App\Contracts\RentableInterface;
+
+abstract class Media implements RentableInterface
 {
     public function __construct(
-        string $id,
-        string $title,
-        string $author,
-        string $category,
-        float $dailyRate,
-        private int $pages,
-        private string $format = 'PDF/EPUB',
-        private string $synopsis = '',
-        private string $coverGradient = 'linear-gradient(135deg, #1e3a8a, #3b82f6)',
-        private string $coverImage = '',
-        bool $available = true
-    ) {
-        parent::__construct($id, $title, $author, $category, $dailyRate, $available);
+        protected string $id,
+        protected string $title,
+        protected string $author,
+        protected string $category,
+        protected float $dailyRate,
+        protected bool $available = true
+    ) {}
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
-    public function getPages(): int
+    public function getTitle(): string
     {
-        return $this->pages;
+        return $this->title;
     }
 
-    public function getFormat(): string
+    public function getAuthor(): string
     {
-        return $this->format;
+        return $this->author;
     }
 
-    public function getSynopsis(): string
+    public function getCategory(): string
     {
-        return $this->synopsis;
+        return $this->category;
     }
 
-    public function getCoverGradient(): string
+    public function getDailyRate(): float
     {
-        return $this->coverGradient;
+        return $this->dailyRate;
     }
 
-    public function getCoverImage(): string
+    public function isAvailable(): bool
     {
-        return $this->coverImage;
+        return $this->available;
     }
 
-    public function getMediaType(): string
+    public function setAvailable(bool $status): void
     {
-        return 'E-Book';
+        $this->available = $status;
     }
 
-    public function toArray(): array
+    abstract public function getMediaType(): string;
+    abstract public function toArray(): array;
+}
+media.php
+premiummember.php
+<?php
+declare(strict_types=1);
+
+namespace App\Models;
+
+class PremiumMember extends User
+{
+    public function getMemberType(): string
     {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'author' => $this->author,
-            'category' => $this->category,
-            'dailyRate' => $this->dailyRate,
-            'pages' => $this->pages,
-            'format' => $this->format,
-            'synopsis' => $this->synopsis,
-            'coverGradient' => $this->coverGradient,
-            'coverImage' => $this->coverImage,
-            'available' => $this->available,
-        ];
+        return 'Premium Member (Diskon 20%)';
     }
 
-    public static function fromArray(array $data): self
+    public function getDiscountRate(): float
     {
-        return new self(
-            id: (string) $data['id'],
-            title: (string) $data['title'],
-            author: (string) $data['author'],
-            category: (string) $data['category'],
-            dailyRate: (float) $data['dailyRate'],
-            pages: (int) ($data['pages'] ?? 100),
-            format: (string) ($data['format'] ?? 'PDF'),
-            synopsis: (string) ($data['synopsis'] ?? 'Panduan praktis dan referensi mendalam untuk pengembangan perangkat lunak modern.'),
-            coverGradient: (string) ($data['coverGradient'] ?? 'linear-gradient(135deg, #1e3a8a, #3b82f6)'),
-            coverImage: (string) ($data['coverImage'] ?? ''),
-            available: (bool) ($data['available'] ?? true)
-        );
+        return 0.20;
     }
 }
