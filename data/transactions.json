@@ -1,3 +1,13 @@
 [
-
+    {
+        "transactionId": "TRX-754ADE",
+        "borrowerName": "Test User",
+        "borrowerEmail": "test@example.com",
+        "memberType": "Premium Member (Diskon 20%)",
+        "mediaId": "EBK-001",
+        "mediaTitle": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "days": 3,
+        "totalCost": 18000,
+        "createdAt": "14 Nov 2026, 14:17"
+    }
 ]

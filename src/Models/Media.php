@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\RentableInterface;
 use InvalidArgumentException;
 
-abstract class Media
+abstract class Media implements RentableInterface
 {
     protected string $id;
     protected string $title;

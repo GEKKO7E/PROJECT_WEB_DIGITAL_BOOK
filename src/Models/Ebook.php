@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\RentableInterface;
 use InvalidArgumentException;
 
-class Ebook
+class Ebook implements RentableInterface
 {
     private string $id;
     private string $title;
@@ -111,6 +112,37 @@ class Ebook
     public function getCover(): string
     {
         return $this->cover;
+    }
+
+    public function getCoverImage(): string
+    {
+        return $this->cover;
+    }
+
+    public function getCoverGradient(): string
+    {
+        $category = strtolower($this->category);
+
+        $gradients = [
+            'pemrograman' => 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c084fc 100%)',
+            'arsitektur sistem' => 'linear-gradient(135deg, #0f766e 0%, #14b8a6 50%, #99f6e4 100%)',
+            'basis data' => 'linear-gradient(135deg, #7c2d12 0%, #f97316 50%, #fdba74 100%)',
+            'ui/ux design' => 'linear-gradient(135deg, #be185d 0%, #ec4899 50%, #f9a8d4 100%)',
+            'pengembangan diri' => 'linear-gradient(135deg, #1d4ed8 0%, #1fb6ff 50%, #7dd3fc 100%)',
+        ];
+
+        foreach ($gradients as $keyword => $gradient) {
+            if (str_contains($category, $keyword)) {
+                return $gradient;
+            }
+        }
+
+        return 'linear-gradient(135deg, #2f2f3a 0%, #6b7280 100%)';
+    }
+
+    public function getMediaType(): string
+    {
+        return 'E-Book';
     }
 
     public function isAvailable(): bool
