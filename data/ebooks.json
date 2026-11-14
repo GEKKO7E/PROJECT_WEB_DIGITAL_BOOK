@@ -1,0 +1,80 @@
+[
+    {
+        "id": "EB-001",
+        "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "author": "Robert C. Martin",
+        "category": "Software Engineering",
+        "dailyRate": 5000,
+        "pages": 464,
+        "format": "PDF & EPUB",
+        "synopsis": "Prinsip fundamental menulis kode yang bersih, mudah dibaca, dan mudah dirawat dalam tim pengembangan perangkat lunak profesional.",
+        "coverGradient": "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
+        "coverImage": "assets\/picture\/eb-001.jpg",
+        "available": true
+    },
+    {
+        "id": "EB-002",
+        "title": "Modern PHP: New Features and Good Practices",
+        "author": "Josh Lockhart",
+        "category": "Web Programming",
+        "dailyRate": 4500,
+        "pages": 268,
+        "format": "PDF",
+        "synopsis": "Panduan komprehensif arsitektur PHP modern mencakup namespace, interface, traits, type system, dan standar PSR.",
+        "coverGradient": "linear-gradient(135deg, #312e81 0%, #4f46e5 100%)",
+        "coverImage": "assets\/picture\/eb-002.jpg",
+        "available": true
+    },
+    {
+        "id": "EB-003",
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "category": "System Design",
+        "dailyRate": 6000,
+        "pages": 616,
+        "format": "EPUB",
+        "synopsis": "Membahas arsitektur sistem terdistribusi, replikasi, partisi data, serta keandalan aplikasi berskala besar.",
+        "coverGradient": "linear-gradient(135deg, #7c2d12 0%, #ea580c 100%)",
+        "coverImage": "assets\/picture\/eb-003.jpg",
+        "available": true
+    },
+    {
+        "id": "EB-004",
+        "title": "Refactoring: Improving the Design of Existing Code",
+        "author": "Martin Fowler",
+        "category": "Software Engineering",
+        "dailyRate": 5500,
+        "pages": 448,
+        "format": "PDF & EPUB",
+        "synopsis": "Katalog teknik restrukturisasi kode untuk memperbaiki desain internal tanpa mengubah perilaku eksternal program.",
+        "coverGradient": "linear-gradient(135deg, #064e3b 0%, #059669 100%)",
+        "coverImage": "assets\/picture\/eb-004.jpg",
+        "available": true
+    },
+    {
+        "id": "EB-005",
+        "title": "Eloquent JavaScript (4th Edition)",
+        "author": "Marijn Haverbeke",
+        "category": "Web Programming",
+        "dailyRate": 4000,
+        "pages": 472,
+        "format": "HTML & PDF",
+        "synopsis": "Eksplorasi mendalam bahasa JavaScript modern, manipulasi DOM, pemrograman asinkron, dan pengembangan aplikasi web interaktif.",
+        "coverGradient": "linear-gradient(135deg, #713f12 0%, #d97706 100%)",
+        "coverImage": "assets\/picture\/eb-005.jpg",
+        "available": true
+    },
+    {
+        "id": "EB-006",
+        "title": "Introduction to Algorithms (CLRS)",
+        "author": "Thomas H. Cormen",
+        "category": "Computer Science",
+        "dailyRate": 7000,
+        "pages": 1312,
+        "format": "PDF",
+        "synopsis": "Referensi standar ilmu komputer untuk analisis kompleksitas algoritma, struktur data, graf, dan pemrograman dinamis.",
+        "coverGradient": "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
+        "coverImage": "assets\/picture\/eb-006.jpg",
+        "available": true
+    }
+]
