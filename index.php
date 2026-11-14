@@ -15,7 +15,50 @@ $service = new RentalService(
 $message = '';
 $messageType = '';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
 
+    try {
+        if ($action === 'rent') {
+            $name = trim($_POST['borrower_name'] ?? '');
+            $email = trim($_POST['borrower_email'] ?? '');
+            $memberTier = $_POST['member_tier'] ?? 'regular';
+            $ebookId = $_POST['ebook_id'] ?? '';
+            $days = (int) ($_POST['days'] ?? 0);
+
+            if ($name === '' || $email === '' || $ebookId === '') {
+                throw new Exception('Semua kolom wajib diisi.');
+            }
+
+            $user = ($memberTier === 'premium')
+                ? new PremiumMember($name, $email)
+                : new RegularMember($name, $email);
+
+            $trx = $service->rentEbook($user, $ebookId, $days);
+            $trxData = $trx->toArray();
+
+            $message = sprintf(
+                'Penyewaan berhasil! Kode Transaksi: <strong>%s</strong> &bull; Total Bayar: <strong>Rp %s</strong> (%s)',
+                htmlspecialchars($trxData['transactionId']),
+                number_format($trxData['totalCost'], 0, ',', '.'),
+                htmlspecialchars($trxData['memberType'])
+            );
+            $messageType = 'success';
+        } elseif ($action === 'return_one') {
+            $ebookId = $_POST['ebook_id'] ?? '';
+            $service->returnSingleEbook($ebookId);
+            $message = 'E-Book (' . htmlspecialchars($ebookId) . ') berhasil dikembalikan ke rak katalog.';
+            $messageType = 'info';
+        } elseif ($action === 'reset') {
+            $service->returnAllEbooks();
+            $message = 'Seluruh koleksi e-book telah dikembalikan menjadi Tersedia.';
+            $messageType = 'info';
+        }
+    } catch (Exception $e) {
+        $message = htmlspecialchars($e->getMessage());
+        $messageType = 'error';
+    }
+}
 
 $ebooks = $service->getAllEbooks();
 $transactions = $service->getAllTransactions();
