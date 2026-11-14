@@ -3,18 +3,44 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Contracts\RentableInterface;
+use InvalidArgumentException;
 
-abstract class Media implements RentableInterface
+class Ebook
 {
+    private string $id;
+    private string $title;
+    private string $author;
+    private string $category;
+    private float $dailyRate;
+    private int $pages;
+    private string $format;
+    private string $synopsis;
+    private string $cover;
+    private bool $isAvailable;
+
     public function __construct(
-        protected string $id,
-        protected string $title,
-        protected string $author,
-        protected string $category,
-        protected float $dailyRate,
-        protected bool $available = true
-    ) {}
+        string $id,
+        string $title,
+        string $author,
+        string $category,
+        float $dailyRate,
+        int $pages,
+        string $format = 'PDF / EPUB',
+        string $synopsis = '',
+        string $cover = '',
+        bool $isAvailable = true
+    ) {
+        $this->id = trim($id);
+        $this->setTitle($title);
+        $this->setAuthor($author);
+        $this->category = trim($category);
+        $this->setDailyRate($dailyRate);
+        $this->pages = max(1, $pages);
+        $this->format = trim($format);
+        $this->synopsis = trim($synopsis);
+        $this->cover = trim($cover);
+        $this->isAvailable = $isAvailable;
+    }
 
     public function getId(): string
     {
@@ -26,9 +52,27 @@ abstract class Media implements RentableInterface
         return $this->title;
     }
 
+    public function setTitle(string $title): void
+    {
+        $clean = trim($title);
+        if ($clean === '') {
+            throw new InvalidArgumentException('Judul e-book tidak boleh kosong.');
+        }
+        $this->title = $clean;
+    }
+
     public function getAuthor(): string
     {
         return $this->author;
+    }
+
+    public function setAuthor(string $author): void
+    {
+        $clean = trim($author);
+        if ($clean === '') {
+            throw new InvalidArgumentException('Nama penulis tidak boleh kosong.');
+        }
+        $this->author = $clean;
     }
 
     public function getCategory(): string
@@ -41,35 +85,73 @@ abstract class Media implements RentableInterface
         return $this->dailyRate;
     }
 
+    public function setDailyRate(float $dailyRate): void
+    {
+        if ($dailyRate < 0) {
+            throw new InvalidArgumentException('Tarif sewa harian tidak boleh negatif.');
+        }
+        $this->dailyRate = $dailyRate;
+    }
+
+    public function getPages(): int
+    {
+        return $this->pages;
+    }
+
+    public function getFormat(): string
+    {
+        return $this->format;
+    }
+
+    public function getSynopsis(): string
+    {
+        return $this->synopsis;
+    }
+
+    public function getCover(): string
+    {
+        return $this->cover;
+    }
+
     public function isAvailable(): bool
     {
-        return $this->available;
+        return $this->isAvailable;
     }
 
     public function setAvailable(bool $status): void
     {
-        $this->available = $status;
+        $this->isAvailable = $status;
     }
 
-    abstract public function getMediaType(): string;
-    abstract public function toArray(): array;
-}
-media.php
-premiummember.php
-<?php
-declare(strict_types=1);
-
-namespace App\Models;
-
-class PremiumMember extends User
-{
-    public function getMemberType(): string
+    public static function fromArray(array $data): self
     {
-        return 'Premium Member (Diskon 20%)';
+        return new self(
+            (string) ($data['id'] ?? ''),
+            (string) ($data['title'] ?? ''),
+            (string) ($data['author'] ?? ''),
+            (string) ($data['category'] ?? 'Umum'),
+            (float) ($data['dailyRate'] ?? 0),
+            (int) ($data['pages'] ?? 100),
+            (string) ($data['format'] ?? 'PDF / EPUB'),
+            (string) ($data['synopsis'] ?? ''),
+            (string) ($data['cover'] ?? ''),
+            (bool) ($data['isAvailable'] ?? true)
+        );
     }
 
-    public function getDiscountRate(): float
+    public function toArray(): array
     {
-        return 0.20;
+        return [
+            'id'          => $this->id,
+            'title'       => $this->title,
+            'author'      => $this->author,
+            'category'    => $this->category,
+            'dailyRate'   => $this->dailyRate,
+            'pages'       => $this->pages,
+            'format'      => $this->format,
+            'synopsis'    => $this->synopsis,
+            'cover'       => $this->cover,
+            'isAvailable' => $this->isAvailable,
+        ];
     }
 }

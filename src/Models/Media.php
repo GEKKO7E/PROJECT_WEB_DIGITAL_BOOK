@@ -6,7 +6,15 @@ namespace App\Models;
 use App\Contracts\RentableInterface;
 
 abstract class Media implements RentableInterface
-
+{
+    public function __construct(
+        protected string $id,
+        protected string $title,
+        protected string $author,
+        protected string $category,
+        protected float $dailyRate,
+        protected bool $available = true
+    ) {}
 
     public function getId(): string
     {
