@@ -13,19 +13,6 @@
         "available": true
     },
     {
-        "id": "EB-002",
-        "title": "Modern PHP: New Features and Good Practices",
-        "author": "Josh Lockhart",
-        "category": "Web Programming",
-        "dailyRate": 4500,
-        "pages": 268,
-        "format": "PDF",
-        "synopsis": "Panduan komprehensif arsitektur PHP modern mencakup namespace, interface, traits, type system, dan standar PSR.",
-        "coverGradient": "linear-gradient(135deg, #312e81 0%, #4f46e5 100%)",
-        "coverImage": "assets\/picture\/eb-002.jpg",
-        "available": true
-    },
-    {
         "id": "EB-003",
         "title": "Designing Data-Intensive Applications",
         "author": "Martin Kleppmann",
